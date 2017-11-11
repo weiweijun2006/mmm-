@@ -1,0 +1,46 @@
+from PyQt5 import QtWidgets
+from untitled4 import Ui_MainWindow
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QApplication
+
+class mywindow(QtWidgets.QMainWindow,Ui_MainWindow):
+    aa=0
+    _signal=QtCore.pyqtSignal(str)
+    def __init__(self):
+        super(mywindow,self).__init__()
+        self.setupUi(self)
+       # self.pushButton_2.clicked.connect(self.slot1)
+        self._signal.connect(self.slot2)
+        self.statusBar.showMessage('吃放了')
+        self.menuBar.triggered['QAction*'].connect(self.slot2)
+    def slot1(slef):
+
+        #global aa
+        slef.aa=slef.aa+1
+        print("你好")
+
+
+        slef.textBrowser.append("nihao")
+        slef.textBrowser.setToolTip('不好')
+        if(slef.aa>5):
+            slef._signal.emit("你妹，打印结束了吗，快回答！")
+            slef.aa=0
+            #slef.textBrowser.setFont('song', 9);
+            slef.textBrowser.setText('aaaaa')
+    def slot2(slef,string):
+        print("你好")
+        slef.textBrowser_2.append("string")
+    def center(self):
+        qr = self.frameGeometry()
+        cp =QtWidgets.QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+if __name__=="__main__":
+    import sys
+    app=QtWidgets.QApplication(sys.argv)
+    myshow=mywindow()
+    myshow.setWindowTitle(' 标题')
+    myshow.center()
+    myshow.show()
+
+    sys.exit(app.exec_())
